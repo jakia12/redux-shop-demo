@@ -10,7 +10,9 @@ import {
   setSort,
 } from "@/features/products/productFilterSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+
 import Image from "next/image";
+import Link from "next/link";
 
 export default function AllProductsPage() {
   const { category, sort, search } = useAppSelector(
@@ -78,22 +80,21 @@ export default function AllProductsPage() {
             <p>Loading...</p>
           ) : (
             sorted?.map((product) => (
-              <div
-                key={product.id}
-                className="border p-4 rounded shadow hover:shadow-md transition"
-              >
-                <Image
-                  src={product.image}
-                  alt={product.title}
-                  width={200}
-                  height={200}
-                  className="object-contain h-40 mx-auto"
-                />
-                <h3 className="mt-2 font-medium">{product.title}</h3>
-                <p className="text-indigo-600 font-semibold">
-                  ${product.price}
-                </p>
-              </div>
+              <Link href={`products/${product.id}`} key={product.id}>
+                <div className="border p-4 rounded shadow hover:shadow-md transition">
+                  <Image
+                    src={product.image}
+                    alt={product.title}
+                    width={200}
+                    height={200}
+                    className="object-contain h-40 mx-auto"
+                  />
+                  <h3 className="mt-2 font-medium">{product.title}</h3>
+                  <p className="text-indigo-600 font-semibold">
+                    ${product.price}
+                  </p>
+                </div>
+              </Link>
             ))
           )}
         </div>
